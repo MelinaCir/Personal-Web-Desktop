@@ -34,14 +34,14 @@ body, html {
   text-decoration: none;
 }
 
-#outer {
-  /* display: flex; */
+/* #outer {
+  /* display: flex; 
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border-radius: 7px;
   touch-action: none;
-}
+} */
 #moveme {
   position: absolute;
   z-index: 90;
