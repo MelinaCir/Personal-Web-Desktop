@@ -6,6 +6,7 @@ body, html {
 .bg {
   /* background-image: url("/src/image/IMG_2644.jpg"); */
   width: 100%;
+  position: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -31,4 +32,29 @@ body, html {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+
+#outer {
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 7px;
+  touch-action: none;
+}
+#moveme {
+  position: absolute;
+  z-index: 90;
+  background-color: aqua;
+  border: 1px solid black;
+  text-align: center;
+}
+
+#moveheader {
+  padding: 5px;
+  cursor: move;
+  z-index: 10;
+  background-color: blueviolet;
+  touch-action: none;
+  user-select: none;
 }
