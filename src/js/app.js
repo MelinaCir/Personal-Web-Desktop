@@ -1,40 +1,56 @@
 import memory from './Memory.js'
 
+// "button" for memory game
 let memoryIcon = document.querySelector('#memory-icon')
-let counter = 1
-
-let chatIcon = document.querySelector('#chat-icon')
+// let counter = 1
 
 memoryIcon.addEventListener('dblclick', function (event) {
   createWindow()
-  memory.createMemoryBase(document.querySelector('.moveme'))
-  memory.createMemory(3, 4, 'memoryblock')
+  memory.createMemoryBase(document.querySelector('#moveme'))
+  memory.createMemory(2, 3, 'memoryblock')
 })
+
+// "button" for chat
+let chatIcon = document.querySelector('#chat-icon')
 
 chatIcon.addEventListener('dblclick', function (event) {
   createWindow()
   let chatP = document.createElement('p')
   chatP.innerText = 'test'
-  document.querySelector('.moveme').appendChild(chatP)
+  document.querySelector('#moveme').appendChild(chatP)
 })
 
+// Create a new window for the activated button
 function createWindow (event) {
   let newWindow = document.createElement('div')
-  newWindow.setAttribute('class', 'moveme')
+  newWindow.setAttribute('id', 'moveme')
+
   let windowTitle = document.createElement('div')
   windowTitle.setAttribute('class', 'moveheader')
   windowTitle.innerText = 'Memory One'
   newWindow.appendChild(windowTitle)
 
+  let closeButton = document.createElement('button')
+  closeButton.setAttribute('id', 'closebutton')
+  windowTitle.appendChild(closeButton)
+
   let div = document.querySelector('#desktop')
   div.appendChild(newWindow)
 
   movingWindow()
+
+  // let closeButton = document.querySelector('#closebutton button')
+  // console.log(closeButton)
+
+  closeButton.addEventListener('click', function (event) {
+    let memoryWindow = document.getElementById('moveme')
+    memoryWindow.remove()
+  })
 }
 
 function movingWindow () {
   let dragWindow = document.querySelector('.moveheader')
-  let container = document.querySelector('.moveme')
+  let container = document.querySelector('#moveme')
 
   let active = false
   let currentX

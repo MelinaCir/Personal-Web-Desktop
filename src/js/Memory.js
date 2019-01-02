@@ -1,15 +1,3 @@
-/* <div id="memoryblock">
-
-        <template>
-            <div class="memory">
-                <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
-            </div>
-        </template>
-
-    </div> */
-
-// memory.createMemoryBase()
-// memory.createMemory(4, 4, 'memoryblock')
 
 // really ugly temporary solution. FIX THIS>!!!
 function createMemoryBase (puthere) {
@@ -101,10 +89,6 @@ function createMemory (rows, cols, container) {
       if (tile === lastTile) {
         pairs++
 
-        if (pairs === (rows * cols) / 2) {
-          console.log('Winner! You used ' + tries + ' tries.')
-        }
-
         setTimeout(function () {
           turn1.parentNode.classList.add('removed')
           turn2.parentNode.classList.add('removed')
@@ -119,6 +103,14 @@ function createMemory (rows, cols, container) {
 
           turn1 = null
           turn2 = null
+        }, 500)
+      }
+      if (pairs === (rows * cols) / 2) {
+        setTimeout(function () {
+          let winnerText = document.createElement('p')
+          winnerText.setAttribute('id', 'winnertext')
+          winnerText.innerText = 'Winner!\n You used ' + tries + ' tries.'
+          container.insertBefore(winnerText, container.childNodes[0])
         }, 500)
       }
     }
