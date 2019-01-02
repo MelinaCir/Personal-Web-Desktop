@@ -3,8 +3,11 @@ body, html {
   margin: 0;
 }
 
+#wrapper {
+  background-color: aqua;
+}
+
 .bg {
-  /* background-image: url("/src/image/IMG_2644.jpg"); */
   width: 100%;
   position: fixed;
   background-position: center;

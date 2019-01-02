@@ -50,4 +50,16 @@ function stopMove () {
   active = false
 }
 
-// memory.createMemory(4, 4, 'memoryblock')
+let memoryIcon = document.querySelector('#memory-icon')
+console.log(memoryIcon)
+
+memoryIcon.addEventListener('dblclick', function (event) {
+  let memoryWindow = document.createElement('div')
+  let div = document.querySelector('#moveme')
+  div.appendChild(memoryWindow)
+
+  let newMemory = memory.createMemoryBase(memoryWindow)
+  memory.createMemory(4, 4, 'memoryblock')
+
+  console.log('clicked!')
+})

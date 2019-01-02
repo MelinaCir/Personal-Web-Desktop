@@ -8,6 +8,24 @@
 
     </div> */
 
+// memory.createMemoryBase()
+// memory.createMemory(4, 4, 'memoryblock')
+
+// really ugly temporary solution. FIX THIS>!!!
+function createMemoryBase (puthere) {
+  let memoryDiv = document.createElement('div')
+  memoryDiv.setAttribute('id', 'memoryblock')
+  let memoryTpl = document.createElement('template')
+  memoryDiv.appendChild(memoryTpl)
+
+  memoryTpl.innerHTML = `
+            <div class="memory">
+                <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
+            </div>
+  `
+  puthere.appendChild(memoryDiv)
+}
+
 /**
  * Create a memory game.
  * @param {number} rows
@@ -133,5 +151,6 @@ function createImgArray (rows, cols) {
 // Exports
 export default {
   createMemory,
-  createImgArray
+  createImgArray,
+  createMemoryBase
 }
