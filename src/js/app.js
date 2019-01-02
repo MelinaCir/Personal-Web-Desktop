@@ -1,25 +1,36 @@
 import memory from './Memory.js'
 
 let memoryIcon = document.querySelector('#memory-icon')
-console.log(memoryIcon)
+let counter = 1
+
+let chatIcon = document.querySelector('#chat-icon')
 
 memoryIcon.addEventListener('dblclick', function (event) {
-  let memoryWindow = document.createElement('div')
-  memoryWindow.setAttribute('class', 'moveme')
+  createWindow()
+  memory.createMemoryBase(document.querySelector('.moveme'))
+  memory.createMemory(3, 4, 'memoryblock')
+})
+
+chatIcon.addEventListener('dblclick', function (event) {
+  createWindow()
+  let chatP = document.createElement('p')
+  chatP.innerText = 'test'
+  document.querySelector('.moveme').appendChild(chatP)
+})
+
+function createWindow (event) {
+  let newWindow = document.createElement('div')
+  newWindow.setAttribute('class', 'moveme')
   let windowTitle = document.createElement('div')
   windowTitle.setAttribute('class', 'moveheader')
   windowTitle.innerText = 'Memory One'
-  memoryWindow.appendChild(windowTitle)
+  newWindow.appendChild(windowTitle)
 
   let div = document.querySelector('#desktop')
-  div.appendChild(memoryWindow)
+  div.appendChild(newWindow)
 
-  let newMemory = memory.createMemoryBase(memoryWindow)
-  memory.createMemory(3, 4, 'memoryblock')
-
-  console.log('clicked!')
   movingWindow()
-})
+}
 
 function movingWindow () {
   let dragWindow = document.querySelector('.moveheader')
