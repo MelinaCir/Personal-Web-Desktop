@@ -3,6 +3,7 @@
 function createMemoryBase (puthere) {
   let memoryDiv = document.createElement('div')
   memoryDiv.setAttribute('id', 'memoryblock')
+
   let memoryTpl = document.createElement('template')
   memoryDiv.appendChild(memoryTpl)
 

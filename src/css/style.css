@@ -43,7 +43,7 @@ body, html {
   background-color: rgb(196, 245, 253);
   border: 1px solid black;
   text-align: center;
-  min-width: 180px;
+  width: 250px;
 }
 
 .moveheader {
@@ -67,7 +67,7 @@ body, html {
 }
 
 #username {
-  
+  margin-bottom: 20px;
 }
 
 #memoryblock {
@@ -98,4 +98,15 @@ body, html {
   float: left; 
   background-color: rgb(248, 7, 55); 
   height: 10px;
+}
+
+#chat {
+  background-color: aquamarine;
+  width: 250px;
+}
+
+#messagebox {
+  width: 100px;
+  float: left;
+  
 }

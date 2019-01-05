@@ -22,5 +22,5 @@ chatIcon.addEventListener('dblclick', function (event) {
   let win1 = document.createElement('desktop-window')
   win1.createWindow('Chat')
 
-  chat.createChat()
+  chat.setupChat()
 })
