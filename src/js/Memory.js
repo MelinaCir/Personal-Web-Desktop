@@ -1,6 +1,6 @@
 
 // really ugly temporary solution. FIX THIS>!!!
-function createMemoryBase (puthere) {
+function createMemoryBase () {
   let memoryDiv = document.createElement('div')
   memoryDiv.setAttribute('id', 'memoryblock')
 
@@ -12,7 +12,6 @@ function createMemoryBase (puthere) {
                 <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
             </div>
   `
-  puthere.appendChild(memoryDiv)
 }
 
 /**

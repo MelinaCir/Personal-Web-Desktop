@@ -1,13 +1,20 @@
+import memory from './Memory.js'
+
 class DesktopWindow extends window.HTMLElement {
   constructor () {
     super()
+    this.counter = 1
+    this.test = ''
   }
   connectedCallback () {}
 
   // Create a new window for the activated button
   createWindow (title) {
+    this.test = 'move' + this.counter
+    this.counter++
+
     let newWindow = document.createElement('div')
-    newWindow.setAttribute('id', 'moveme')
+    newWindow.setAttribute('id', `${this.test}`)
 
     let windowTitle = document.createElement('div')
     windowTitle.setAttribute('class', 'moveheader')
@@ -21,6 +28,7 @@ class DesktopWindow extends window.HTMLElement {
     let div = document.querySelector('#desktop')
     div.appendChild(newWindow)
 
+    console.log(this.test)
     this.movingWindow()
 
     closeButton.addEventListener('click', function () {
@@ -31,7 +39,7 @@ class DesktopWindow extends window.HTMLElement {
 
   movingWindow () {
     let dragWindow = document.querySelector('.moveheader')
-    let container = document.querySelector('#moveme')
+    let container = document.getElementById(this.test)
 
     let active = false
     let currentX
@@ -81,6 +89,16 @@ class DesktopWindow extends window.HTMLElement {
     }
   }
 }
+let memoryIcon = document.querySelector('#memory-icon')
+
+memoryIcon.addEventListener('dblclick', function (event) {
+  let win1 = document.createElement('desktop-window')
+  win1.createWindow('Memory')
+
+  this.test.appendChild(memory.createMemoryBase())
+
+  memory.createMemory(2, 3, 'memoryblock')
+})
 
 window.customElements.define('desktop-window', DesktopWindow)
 
