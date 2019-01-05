@@ -5,13 +5,13 @@ class DesktopWindow extends window.HTMLElement {
   connectedCallback () {}
 
   // Create a new window for the activated button
-  createWindow (num) {
+  createWindow (title) {
     let newWindow = document.createElement('div')
     newWindow.setAttribute('id', 'moveme')
 
     let windowTitle = document.createElement('div')
     windowTitle.setAttribute('class', 'moveheader')
-    windowTitle.innerText = 'Memory One'
+    windowTitle.innerText = title
     newWindow.appendChild(windowTitle)
 
     let closeButton = document.createElement('button')

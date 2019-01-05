@@ -40,9 +40,10 @@ body, html {
 #moveme {
   position: absolute;
   z-index: 9;
-  background-color: aqua;
+  background-color: rgb(196, 245, 253);
   border: 1px solid black;
   text-align: center;
+  min-width: 180px;
 }
 
 .moveheader {
@@ -53,8 +54,24 @@ body, html {
   user-select: none;
 }
 
+#user {
+  padding: 5px;
+  z-index: 10;
+  background-color: rgb(128, 108, 243);
+  touch-action: none;
+  user-select: none;
+  font-size: 12px;
+  text-align: left;
+  font-weight: 10;
+  
+}
+
+#username {
+  
+}
+
 #memoryblock {
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -78,5 +95,7 @@ body, html {
 }
 
 #closebutton {
-  float: right;  
+  float: left; 
+  background-color: rgb(248, 7, 55); 
+  height: 10px;
 }
