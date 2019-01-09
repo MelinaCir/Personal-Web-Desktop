@@ -1,17 +1,18 @@
 
 // really ugly temporary solution. FIX THIS>!!!
-function createMemoryBase () {
+function createMemoryBase (putHere) {
   let memoryDiv = document.createElement('div')
   memoryDiv.setAttribute('id', 'memoryblock')
 
   let memoryTpl = document.createElement('template')
   memoryDiv.appendChild(memoryTpl)
 
-  memoryTpl.innerHTML = `
+  memoryTpl.innerHTML = /* html */ `
             <div class="memory">
                 <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
             </div>
   `
+  putHere.appendChild(memoryDiv)
 }
 
 /**
