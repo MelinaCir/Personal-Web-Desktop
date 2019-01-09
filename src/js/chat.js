@@ -1,7 +1,6 @@
 
 function setupChat () {
   let name = nameStorage.getItem('userName')
-  console.log(name)
 
   if (!name) {
     const chatTemplate = document.createElement('template')
@@ -53,6 +52,10 @@ function startChat () {
 }
 
 function createChat () {
+  let messageDiv = document.createElement('div')
+  messageDiv.setAttribute('id', 'messages')
+  document.querySelector('#moveme').appendChild(messageDiv)
+
   let chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
   let chatData = {
     'type': 'message',
@@ -72,13 +75,11 @@ function createChat () {
       let user = document.createElement('h3')
       user.setAttribute('id', 'user')
       user.innerText = answer.username
-      let chatWindow = document.querySelector('#moveme')
-      let child = document.querySelectorAll('#moveme textarea')[0]
-      chatWindow.insertBefore(user, child)
+      document.querySelector('#messages').appendChild(user)
 
       let userMessage = document.createElement('p')
       userMessage.innerText = answer.data
-      document.querySelector('#moveme').appendChild(userMessage)
+      document.querySelector('#messages').appendChild(userMessage)
     }
     console.log(event.data)
   })
@@ -89,6 +90,8 @@ function createChat () {
   messageBox.setAttribute('rows', '5')
   document.querySelector('#moveme').appendChild(messageBox)
 }
+
+let textBox = document.querySelector
 
 // chatSocket.close()
 
