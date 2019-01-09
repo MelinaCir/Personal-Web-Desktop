@@ -56,6 +56,8 @@ function createChat () {
   messageDiv.setAttribute('id', 'messages')
   document.querySelector('#moveme').appendChild(messageDiv)
 
+  let writtenMessage
+
   let chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
   let chatData = {
     'type': 'message',
@@ -86,12 +88,29 @@ function createChat () {
 
   let messageBox = document.createElement('textarea')
   messageBox.setAttribute('name', 'textbox')
+  messageBox.setAttribute('id', 'messagebox')
   messageBox.setAttribute('cols', '30')
   messageBox.setAttribute('rows', '5')
   document.querySelector('#moveme').appendChild(messageBox)
-}
 
-let textBox = document.querySelector
+  let textBox = document.querySelector('#messagebox')
+
+  textBox.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+
+      if (textBox.value !== '') {
+        writtenMessage = textBox.value
+
+        let myMessage = document.createElement('p')
+        myMessage.innerText = textBox.value
+        document.querySelector('#messages').appendChild(myMessage)
+        console.log(writtenMessage)
+        textBox.value = ''
+      }
+    }
+  })
+}
 
 // chatSocket.close()
 
