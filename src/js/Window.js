@@ -1,6 +1,9 @@
 class Window {
   constructor (title) {
     this.title = title
+    this.div = document.createElement('div')
+    this.div.setAttribute('id', 'window')
+    this.createWindow()
   }
 
   createWindow () {
@@ -22,7 +25,7 @@ class Window {
     closeButton.addEventListener('click', function () {
       newWindow.remove()
     })
-    return newWindow
+    this.div.appendChild(newWindow)
   }
 
   movingWindow () {
@@ -35,12 +38,11 @@ class Window {
     let offsetY = 0
 
     let dragWindow = document.querySelector('.moveheader')
-    let container = document.getElementById('moveme')
 
-    container.addEventListener('mousedown', startMove, false)
-    container.addEventListener('mousemove', drag, false)
-    container.addEventListener('mouseup', stopMove, false)
-    container.addEventListener('mouseleave', stopMove, false)
+    this.div.addEventListener('mousedown', startMove, false)
+    this.div.addEventListener('mousemove', drag, false)
+    this.div.addEventListener('mouseup', stopMove, false)
+    this.div.addEventListener('mouseleave', stopMove, false)
 
     function startMove (event) {
       initialX = event.clientX - offsetX
@@ -78,6 +80,4 @@ class Window {
   }
 }
 
-export default {
-  Window
-}
+export default Window

@@ -1,35 +1,30 @@
 class MemoryGame {
   constructor () {
-    this.container = ''
+    this.memoryDiv = document.createElement('div')
+    this.memoryDiv.setAttribute('id', 'memoryblock')
     this.createMemoryBase()
   }
-  // Creates the base for the game by
-  // creating the main div for the game
-  // and creating the template for the cards
-  createMemoryBase () {
-    // main div for game
-    let memoryDiv = document.createElement('div')
-    memoryDiv.setAttribute('id', 'memoryblock')
 
+  createMemoryBase () {
     // card template
     let memoryTpl = document.createElement('template')
-    memoryDiv.appendChild(memoryTpl)
+    this.memoryDiv.appendChild(memoryTpl)
 
     memoryTpl.innerHTML = /* html */ `
               <div class="memory">
                   <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
               </div>
     `
+    this.createMemory(2, 3, memoryTpl)
   }
 
-  createMemory (rows, cols) {
+  createMemory (rows, cols, memdiv) {
     let a
     let tiles = []
 
     tiles = this.createImgArray(rows, cols)
 
-    this.container = document.getElementById('memoryblock')
-    var templateDiv = document.querySelectorAll('#memoryblock template')[0].content.firstElementChild
+    let templateDiv = memdiv.content.firstElementChild
 
     let div = document.importNode(templateDiv, false)
 
@@ -54,7 +49,7 @@ class MemoryGame {
       this.turnBrick(tiles[index], index, img, rows, cols)
     })
 
-    this.container.appendChild(div)
+    this.memoryDiv.appendChild(div)
   }
   /**
      *
@@ -86,7 +81,6 @@ class MemoryGame {
       }
 
       tries++
-
       turn2 = img
 
       if (tile === lastTile) {
@@ -113,7 +107,7 @@ class MemoryGame {
           let winnerText = document.createElement('p')
           winnerText.setAttribute('id', 'winnertext')
           winnerText.innerText = 'Winner!\n You used ' + tries + ' tries.'
-          this.container.insertBefore(winnerText, this.container.childNodes[0])
+          this.memoryDiv.insertBefore(winnerText, this.memoryDiv.childNodes[0])
         }, 500)
       }
     }
@@ -143,6 +137,4 @@ class MemoryGame {
   }
 }
 
-export default{
-  MemoryGame
-}
+export default MemoryGame
