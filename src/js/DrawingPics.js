@@ -59,7 +59,7 @@ function createDrawingCanvas (putHere) {
   }
 
   function redraw () {
-    drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height) // Clears the canvas
+    drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height)
 
     drawingContext.strokeStyle = '#df4b26'
     drawingContext.lineJoin = 'round'
@@ -67,11 +67,13 @@ function createDrawingCanvas (putHere) {
 
     for (var i = 0; i < clickX.length; i++) {
       drawingContext.beginPath()
+
       if (clickDrag[i] && i) {
         drawingContext.moveTo(clickX[i - 1], clickY[i - 1])
       } else {
         drawingContext.moveTo(clickX[i] - 1, clickY[i])
       }
+
       drawingContext.lineTo(clickX[i], clickY[i])
       drawingContext.closePath()
       drawingContext.stroke()
