@@ -45,10 +45,10 @@ class Chat2 {
     button.addEventListener('click', inputGiven)
 
     function inputGiven () {
-      let value = button.previousElementSibling.value
+      let value = this.previousElementSibling.value
       if (value.length === 0) return
 
-      userName = button.previousElementSibling.value
+      userName = this.previousElementSibling.value
       this.nameStorage.setItem('userName', userName)
 
       let inputBox = this.chatDiv.getElementById('username')

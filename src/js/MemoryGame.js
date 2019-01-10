@@ -39,25 +39,23 @@ class MemoryGame {
       }
     })
 
-    div.addEventListener('click', function (event) {
-      event.preventDefault()
-      let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+    // div.addEventListener('click', function (event) {
+    //   event.preventDefault()
+    //   let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+    //   let index = parseInt(img.getAttribute('data-bricknumber'))
+    //   this.turnBrick(tiles[index], img, rows, cols)
+    // })
 
-      let index = parseInt(img.getAttribute('data-bricknumber'))
-
-      this.turnBrick(tiles[index], img, rows, cols)
-    })
+    div.addEventListener('click', event => this.turnBrick(event, tiles, rows, cols))
 
     this.memoryDiv.appendChild(div)
   }
-  /**
-     *
-     * @param {number} tile
-     * @param {number} index
-     * @param {*} img
-     */
-  turnBrick (tile, img, rows, cols) {
-    let turn1
+  turnBrick (event, tiles, rows, cols) {
+    event.preventDefault()
+    let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+    let index = parseInt(img.getAttribute('data-bricknumber'))
+    let tile = tiles[index]
+    let turn1 = null
     let turn2
     let lastTile
     let pairs = 0
@@ -82,6 +80,7 @@ class MemoryGame {
       tries++
       turn2 = img
 
+      console.log('last tile = ' + lastTile + ' tile = ' + tile)
       if (tile === lastTile) {
         pairs++
 
