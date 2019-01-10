@@ -56,8 +56,6 @@ function createChat () {
   messageDiv.setAttribute('id', 'messages')
   document.querySelector('#moveme').appendChild(messageDiv)
 
-  let writtenMessage
-
   let chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
   let chatData = {
     'type': 'message',
@@ -67,12 +65,13 @@ function createChat () {
     'key': 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
   }
 
-  chatSocket.addEventListener('open', event => {
-    chatSocket.send(JSON.stringify(chatData))
-  })
+  // chatSocket.addEventListener('open', event => {
+  //   chatSocket.send(JSON.stringify(chatData))
+  // })
 
   chatSocket.addEventListener('message', event => {
     let answer = JSON.parse(event.data)
+
     if (answer.type !== 'heartbeat') {
       let user = document.createElement('h3')
       user.setAttribute('id', 'user')
@@ -100,12 +99,8 @@ function createChat () {
       event.preventDefault()
 
       if (textBox.value !== '') {
-        writtenMessage = textBox.value
-
-        let myMessage = document.createElement('p')
-        myMessage.innerText = textBox.value
-        document.querySelector('#messages').appendChild(myMessage)
-        console.log(writtenMessage)
+        chatData.data = textBox.value
+        chatSocket.send(JSON.stringify(chatData))
         textBox.value = ''
       }
     }

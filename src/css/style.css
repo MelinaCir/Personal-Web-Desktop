@@ -1,3 +1,4 @@
+/* Main */
 body, html {
   width: 100%;
   margin: 0;
@@ -37,6 +38,7 @@ body, html {
   text-decoration: none;
 }
 
+/* Desktop Window */
 #moveme {
   position: absolute;
   z-index: 9;
@@ -46,16 +48,47 @@ body, html {
   width: 250px;
 }
 
+#closebutton {
+  float: left; 
+  background-color: rgb(248, 7, 55); 
+  height: 10px;
+}
+
+/* Chat */
+#messages p {
+  text-align: left;
+  font-size: 13px;
+  margin-left: 5px;
+  width: 240px;
+}
+
 .moveheader {
   padding: 5px;
   z-index: 10;
   background-color: blueviolet;
   touch-action: none;
   user-select: none;
+  text-align: center;
+}
+
+#chat {
+  background-color: aquamarine;
+}
+
+#messagebox {
+  width: 200px;
+  float: left;
+  margin: 5px;  
+  overflow: auto;
+}
+
+#messages {
+  overflow: auto;
+  height: 300px;
 }
 
 #user {
-  padding: 5px;
+  padding: 2px;
   z-index: 10;
   background-color: rgb(128, 108, 243);
   touch-action: none;
@@ -70,6 +103,7 @@ body, html {
   margin-bottom: 20px;
 }
 
+/* Memory */
 #memoryblock {
   margin-top: 20px;
   text-align: center;
@@ -94,19 +128,10 @@ body, html {
   position: absolute;
 }
 
-#closebutton {
-  float: left; 
-  background-color: rgb(248, 7, 55); 
-  height: 10px;
-}
+/* Drawing */
 
-#chat {
-  background-color: aquamarine;
-  width: 250px;
-}
-
-#messagebox {
-  width: 100px;
-  float: left;
+#drawingcanvas {
+  background-color: blanchedalmond;
+  position: relative;
   
 }
