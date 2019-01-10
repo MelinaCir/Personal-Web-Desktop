@@ -6,7 +6,6 @@ class MemoryGame {
   }
 
   createMemoryBase () {
-    // card template
     let memoryTpl = document.createElement('template')
     this.memoryDiv.appendChild(memoryTpl)
 
@@ -46,7 +45,7 @@ class MemoryGame {
 
       let index = parseInt(img.getAttribute('data-bricknumber'))
 
-      this.turnBrick(tiles[index], index, img, rows, cols)
+      this.turnBrick(tiles[index], img, rows, cols)
     })
 
     this.memoryDiv.appendChild(div)
@@ -57,7 +56,7 @@ class MemoryGame {
      * @param {number} index
      * @param {*} img
      */
-  turnBrick (tile, index, img, rows, cols) {
+  turnBrick (tile, img, rows, cols) {
     let turn1
     let turn2
     let lastTile

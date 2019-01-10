@@ -19,13 +19,11 @@ class Window {
     closeButton.setAttribute('id', 'closebutton')
     windowTitle.appendChild(closeButton)
 
-    console.log(this.test)
-    this.movingWindow()
-
     closeButton.addEventListener('click', function () {
       newWindow.remove()
     })
     this.div.appendChild(newWindow)
+    this.movingWindow()
   }
 
   movingWindow () {
@@ -37,12 +35,13 @@ class Window {
     let offsetX = 0
     let offsetY = 0
 
-    let dragWindow = document.querySelector('.moveheader')
+    let dragWindow = this.div.querySelector('.moveheader')
+    let container = this.div.querySelector('#moveme')
 
-    this.div.addEventListener('mousedown', startMove, false)
-    this.div.addEventListener('mousemove', drag, false)
-    this.div.addEventListener('mouseup', stopMove, false)
-    this.div.addEventListener('mouseleave', stopMove, false)
+    container.addEventListener('mousedown', startMove, false)
+    container.addEventListener('mousemove', drag, false)
+    container.addEventListener('mouseup', stopMove, false)
+    container.addEventListener('mouseleave', stopMove, false)
 
     function startMove (event) {
       initialX = event.clientX - offsetX

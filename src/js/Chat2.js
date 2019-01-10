@@ -3,15 +3,12 @@ template.innerHTML = `
 <div id = "chat"></div>
 `
 
-export class Chat2 extends window.HTMLElement {
+class Chat2 {
   constructor () {
-    super()
     this.nameStorage = window.sessionStorage
+    this.chatDiv = document.createElement('div')
+    this.chatDiv.setAttribute('id', 'chat')
     this.setupChat()
-
-    this.attachShadow({ mode: 'open' })
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.div = this.shadowRoot.querySelector('#chat')
   }
 
   setupChat () {
@@ -25,7 +22,7 @@ export class Chat2 extends window.HTMLElement {
         <button id="submitbtn">Start Chatting</button>
     `
       let chatClone = chatTemplate.content.cloneNode(true)
-      this.div.appendChild(chatClone)
+      this.chatDiv.appendChild(chatClone)
 
       this.startChat()
     } else {
@@ -34,10 +31,11 @@ export class Chat2 extends window.HTMLElement {
   }
 
   startChat () {
-    let button = document.querySelector('#submitbtn')
+    let button = this.chatDiv.querySelector('#submitbtn')
+
     let userName
 
-    let input = document.querySelector('#username')
+    let input = this.chatDiv.querySelector('#username')
     input.addEventListener('keydown', function (event) {
       if (event.key === 'Enter') {
         inputGiven()
@@ -53,8 +51,8 @@ export class Chat2 extends window.HTMLElement {
       userName = button.previousElementSibling.value
       this.nameStorage.setItem('userName', userName)
 
-      let inputBox = document.getElementById('username')
-      let question = document.querySelector('#chat p')
+      let inputBox = this.chatDiv.getElementById('username')
+      let question = this.chatDiv.querySelector('#chat p')
       question.remove()
       inputBox.remove()
       button.remove()
@@ -66,7 +64,7 @@ export class Chat2 extends window.HTMLElement {
   createChat () {
     let messageDiv = document.createElement('div')
     messageDiv.setAttribute('id', 'messages')
-    this.div.appendChild(messageDiv)
+    this.chatDiv.appendChild(messageDiv)
 
     let chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
     let chatData = {
@@ -88,11 +86,11 @@ export class Chat2 extends window.HTMLElement {
         let user = document.createElement('h3')
         user.setAttribute('id', 'user')
         user.innerText = answer.username
-        document.querySelector('#messages').appendChild(user)
+        this.chatDiv.querySelector('#messages').appendChild(user)
 
         let userMessage = document.createElement('p')
         userMessage.innerText = answer.data
-        document.querySelector('#messages').appendChild(userMessage)
+        this.chatDiv.querySelector('#messages').appendChild(userMessage)
       }
       console.log(event.data)
     })
@@ -102,9 +100,9 @@ export class Chat2 extends window.HTMLElement {
     messageBox.setAttribute('id', 'messagebox')
     messageBox.setAttribute('cols', '30')
     messageBox.setAttribute('rows', '5')
-    this.div.appendChild(messageBox)
+    this.chatDiv.appendChild(messageBox)
 
-    let textBox = document.querySelector('#messagebox')
+    let textBox = this.chatDiv.querySelector('#messagebox')
 
     textBox.addEventListener('keydown', function (event) {
       if (event.key === 'Enter') {
@@ -121,8 +119,5 @@ export class Chat2 extends window.HTMLElement {
 }
 
 // chatSocket.close()
-window.customElements.define('chat-window', Chat2)
 
-export default {
-  Chat2
-}
+export default Chat2

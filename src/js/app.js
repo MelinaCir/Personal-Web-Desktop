@@ -25,6 +25,10 @@ memoryIcon.addEventListener('dblclick', function (event) {
 let chatIcon = document.querySelector('#chat-icon')
 
 chatIcon.addEventListener('dblclick', function (event) {
-  let chat1 = document.createElement('chat-window')
-  document.querySelector('#desktop').appendChild(chat1)
+  var chat = new Chat2()
+  var window = new Window('Chat')
+
+  let content = window.div.querySelector('#moveme')
+  content.appendChild(chat.chatDiv)
+  document.querySelector('#desktop').appendChild(content)
 })
