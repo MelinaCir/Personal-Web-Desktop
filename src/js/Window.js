@@ -49,6 +49,8 @@ class Window {
 
       if (event.target === dragWindow) {
         active = true
+        console.log(container)
+        container.focus()
       }
     }
 
@@ -66,6 +68,8 @@ class Window {
     }
 
     function setTranslate (xPos, yPos, elem) {
+      console.log(elem)
+      console.log(elem.style)
       elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
     }
 

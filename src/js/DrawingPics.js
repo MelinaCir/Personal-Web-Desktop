@@ -34,73 +34,59 @@ class DrawingPics {
     let mouseY
     let currentX
     let currentY
+    let paint = false
     let offsetX = 0
     let offsetY = 0
-    let paint
 
-    drawingCanvas.addEventListener('mousedown', function (event) {
-      console.log(event)
-      mouseX = event.clientX - this.offsetLeft
-      mouseY = event.clientY - this.offsetTop
-      console.log('mouse' + mouseX)
+    drawingCanvas.addEventListener('mousedown', setPosition)
 
-      // setPosition()
-      paint = true
-      addClick(mouseX, mouseY)
-      redraw()
-    })
+    drawingCanvas.addEventListener('mousemove', draw)
 
-    drawingCanvas.addEventListener('mousemove', function (event) {
-      if (paint) {
-        event.preventDefault()
+    drawingCanvas.addEventListener('mouseup', stopPainting)
 
-        addClick(event.clientX - this.offsetLeft, event.clientY - this.offsetTop, true)
-        redraw()
-      }
-    })
+    drawingCanvas.addEventListener('mouseleave', stopPainting)
 
-    drawingCanvas.addEventListener('mouseup', function (event) {
+    function stopPainting () {
       paint = false
-    })
-
-    drawingCanvas.addEventListener('mouseleave', function (event) {
-      paint = false
-    })
-
-    // function setPosition (event) {
-    //   currentX = event.clientX
-    //   currentY = event.clientY
-    // }
-
-    let clickX = []
-    let clickY = []
-    let clickDrag = []
-
-    function addClick (x, y, dragging) {
-      clickX.push(x)
-      clickY.push(y)
-      clickDrag.push(dragging)
     }
 
-    function redraw () {
-      drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height)
+    function setPosition (event) {
+      paint = true
+      console.log(event)
 
-      drawingContext.strokeStyle = '#df4b26'
-      drawingContext.lineJoin = 'round'
-      drawingContext.lineWidth = 5
+      mouseX = event.x - offsetX
+      mouseY = event.y - offsetY
+    }
 
-      for (var i = 0; i < clickX.length; i++) {
+    function setTranslate (xPos, yPos, elem) {
+      console.log(elem)
+      console.log(elem.style)
+      elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
+    }
+
+    function draw (event) {
+      if (paint) {
+        if (event.buttons !== 1) return
+
         drawingContext.beginPath()
+        drawingContext.strokeStyle = '#df4b26'
+        drawingContext.lineJoin = 'round'
+        drawingContext.lineCap = 'round'
+        drawingContext.lineWidth = 5
 
-        if (clickDrag[i] && i) {
-          drawingContext.moveTo(clickX[i - 1], clickY[i - 1])
-        } else {
-          drawingContext.moveTo(clickX[i] - 1, clickY[i])
-        }
-
-        drawingContext.lineTo(clickX[i], clickY[i])
-        drawingContext.closePath()
+        drawingContext.moveTo(mouseX, mouseY)
+        setPosition(event)
+        console.log(event)
+        console.log(mouseX, mouseY)
+        drawingContext.lineTo(mouseX, mouseY)
         drawingContext.stroke()
+
+        currentX = event.clientX - mouseX
+        currentY = event.clientY - mouseY
+
+        offsetX = currentX
+        offsetY = currentY
+        setTranslate(mouseX, mouseY, this)
       }
     }
   }
