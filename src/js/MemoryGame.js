@@ -1,3 +1,10 @@
+/**
+ * Class MemoryGame
+ *
+ * @author Melina Cirverius
+ * @version 1.2
+ */
+
 class MemoryGame {
   constructor () {
     this.memoryDiv = document.createElement('div')

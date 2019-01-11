@@ -1,6 +1,3 @@
-import memory from './Memory.js'
-import DesktopWindow from './DesktopWindow.js'
-import chat from './chat.js'
 import Chat2 from './Chat2.js'
 import Drawing from './DrawingPics.js'
 import MemoryGame from './MemoryGame.js'

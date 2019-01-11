@@ -1,8 +1,10 @@
-const template = document.createElement('template')
-template.innerHTML = `
-<div id = "chat"></div>
-`
-
+/**
+ * Class Chat
+ *
+ * @module src/Chat2
+ * @author Melina Cirverius
+ * @version 1.1
+ */
 class Chat2 {
   constructor () {
     this.nameStorage = window.sessionStorage
@@ -24,35 +26,36 @@ class Chat2 {
       let chatClone = chatTemplate.content.cloneNode(true)
       this.chatDiv.appendChild(chatClone)
 
-      this.startChat()
+      this.startChat(this.nameStorage, this.chatDiv)
     } else {
       this.createChat()
     }
   }
 
-  startChat () {
+  startChat (nameStorage, chatDiv) {
     let button = this.chatDiv.querySelector('#submitbtn')
 
     let userName
 
-    let input = this.chatDiv.querySelector('#username')
-    input.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
-        inputGiven()
-      }
-    })
+    // let input = this.chatDiv.querySelector('#username')
 
-    button.addEventListener('click', inputGiven)
+    // input.addEventListener('keydown', event => {
+    //   if (event.key === 'Enter') {
+    //     inputGiven()
+    //   }
+    // })
+
+    button.addEventListener('click', event => inputGiven(event))
 
     function inputGiven () {
-      let value = this.previousElementSibling.value
+      let value = button.previousElementSibling.value
       if (value.length === 0) return
 
-      userName = this.previousElementSibling.value
-      this.nameStorage.setItem('userName', userName)
+      userName = value
+      nameStorage.setItem('userName', userName)
 
-      let inputBox = this.chatDiv.getElementById('username')
-      let question = this.chatDiv.querySelector('#chat p')
+      let inputBox = chatDiv.getElementById('username')
+      let question = chatDiv.querySelector('#chat p')
       question.remove()
       inputBox.remove()
       button.remove()
@@ -75,10 +78,6 @@ class Chat2 {
       'key': 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     }
 
-    // chatSocket.addEventListener('open', event => {
-    //   chatSocket.send(JSON.stringify(chatData))
-    // })
-
     chatSocket.addEventListener('message', event => {
       let answer = JSON.parse(event.data)
 
@@ -92,6 +91,8 @@ class Chat2 {
         userMessage.innerText = answer.data
         this.chatDiv.querySelector('#messages').appendChild(userMessage)
       }
+      messageDiv.scrollTop = messageDiv.scrollHeight
+
       console.log(event.data)
     })
 
