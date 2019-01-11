@@ -20,6 +20,11 @@ class MemoryGame {
   createMemory (rows, cols, memdiv) {
     let a
     let tiles = []
+    let turn1
+    let turn2
+    let lastTile
+    let pairs = 0
+    let tries = 0
 
     tiles = this.createImgArray(rows, cols)
 
@@ -46,71 +51,77 @@ class MemoryGame {
     //   this.turnBrick(tiles[index], img, rows, cols)
     // })
 
-    div.addEventListener('click', event => this.turnBrick(event, tiles, rows, cols))
+    div.addEventListener('click', event => turnBrick(event))
 
     this.memoryDiv.appendChild(div)
-  }
-  turnBrick (event, tiles, rows, cols) {
-    event.preventDefault()
-    let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
-    let index = parseInt(img.getAttribute('data-bricknumber'))
-    let tile = tiles[index]
-    let turn1 = null
-    let turn2
-    let lastTile
-    let pairs = 0
-    let tries = 0
 
-    if (turn2) {
-      return
-    }
+    // prepareBricks (event, tiles, rows, cols) {
+    //   event.preventDefault()
 
-    img.src = 'image/' + tile + '.png'
+    //   let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+    //   let index = parseInt(img.getAttribute('data-bricknumber'))
 
-    if (!turn1) {
-      // first turn
-      turn1 = img
-      lastTile = tile
-    } else {
-      // second turn
-      if (img === turn1) {
+    //   this.turnBrick(tiles, index, img, rows, cols)
+    // }
+
+    function turnBrick (event) {
+      event.preventDefault()
+
+      let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+      let index = parseInt(img.getAttribute('data-bricknumber'))
+
+      let tile = tiles[index]
+
+      if (turn2) {
         return
       }
 
-      tries++
-      turn2 = img
-
-      console.log('last tile = ' + lastTile + ' tile = ' + tile)
-      if (tile === lastTile) {
-        pairs++
-
-        setTimeout(function () {
-          turn1.parentNode.classList.add('removed')
-          turn2.parentNode.classList.add('removed')
-
-          turn1 = null
-          turn2 = null
-        }, 300)
+      img.src = 'image/' + tile + '.png'
+      if (!turn1) {
+      // first turn
+        turn1 = img
+        lastTile = tile
       } else {
-        setTimeout(function () {
-          turn1.src = 'image/0.png'
-          turn2.src = 'image/0.png'
+      // second turn
+        if (img === turn1) {
+          return
+        }
 
-          turn1 = null
-          turn2 = null
-        }, 500)
-      }
-      if (pairs === (rows * cols) / 2) {
-        setTimeout(function () {
-          let winnerText = document.createElement('p')
-          winnerText.setAttribute('id', 'winnertext')
-          winnerText.innerText = 'Winner!\n You used ' + tries + ' tries.'
-          this.memoryDiv.insertBefore(winnerText, this.memoryDiv.childNodes[0])
-        }, 500)
+        tries++
+        turn2 = img
+
+        if (tile === lastTile) {
+          pairs++
+
+          setTimeout(function () {
+            turn1.parentNode.classList.add('removed')
+            turn2.parentNode.classList.add('removed')
+
+            turn1 = null
+            turn2 = null
+          }, 300)
+        } else {
+          setTimeout(function () {
+            turn1.src = 'image/0.png'
+            turn2.src = 'image/0.png'
+
+            turn1 = null
+            turn2 = null
+          }, 500)
+        }
+        if (pairs === (rows * cols) / 2) {
+          setTimeout(function () {
+            let winnerText = document.createElement('p')
+            winnerText.setAttribute('id', 'winnertext')
+            winnerText.innerText = 'Winner!\n You used ' + tries + ' tries.'
+            let div = document.querySelector('#memoryblock')
+            console.log(div)
+            div.insertBefore(winnerText, div.childNodes[0])
+          }, 500)
+        }
       }
     }
   }
-
   /**
  *
  * @param {*} rows
