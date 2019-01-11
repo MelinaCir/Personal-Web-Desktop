@@ -61,7 +61,6 @@ class Window {
 
         offsetX = currentX
         offsetY = currentY
-
         setTranslate(currentX, currentY, this)
       }
     }

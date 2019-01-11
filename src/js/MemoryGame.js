@@ -21,7 +21,7 @@ class MemoryGame {
                   <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
               </div>
     `
-    this.createMemory(2, 3, memoryTpl)
+    this.createMemory(4, 4, memoryTpl)
   }
 
   createMemory (rows, cols, memdiv) {
