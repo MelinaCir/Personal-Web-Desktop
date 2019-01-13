@@ -32,8 +32,6 @@ class DrawingPics {
 
     let mouseX
     let mouseY
-    let currentX
-    let currentY
     let paint = false
     let offsetX = 0
     let offsetY = 0
@@ -52,16 +50,11 @@ class DrawingPics {
 
     function setPosition (event) {
       paint = true
-      console.log(event)
 
-      mouseX = event.x - offsetX
-      mouseY = event.y - offsetY
-    }
+      let canvasPosition = drawingCanvas.getBoundingClientRect()
 
-    function setTranslate (xPos, yPos, elem) {
-      console.log(elem)
-      console.log(elem.style)
-      elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
+      mouseX = (event.x - offsetX) - canvasPosition.left
+      mouseY = (event.y - offsetY) - canvasPosition.top
     }
 
     function draw (event) {
@@ -76,17 +69,8 @@ class DrawingPics {
 
         drawingContext.moveTo(mouseX, mouseY)
         setPosition(event)
-        console.log(event)
-        console.log(mouseX, mouseY)
         drawingContext.lineTo(mouseX, mouseY)
         drawingContext.stroke()
-
-        currentX = event.clientX - mouseX
-        currentY = event.clientY - mouseY
-
-        offsetX = currentX
-        offsetY = currentY
-        setTranslate(mouseX, mouseY, this)
       }
     }
   }

@@ -5,6 +5,7 @@ class Window {
     this.div = document.createElement('div')
     this.div.setAttribute('id', 'window')
     this.createWindow()
+    this.closeButton = ''
   }
 
   createWindow () {
@@ -16,18 +17,21 @@ class Window {
     windowTitle.innerText = this.title
     newWindow.appendChild(windowTitle)
 
-    let closeButton = document.createElement('button')
-    closeButton.setAttribute('id', 'closebutton')
-    windowTitle.appendChild(closeButton)
+    this.closeButton = document.createElement('button')
+    this.closeButton.setAttribute('id', 'closebutton')
 
-    closeButton.addEventListener('click', function () {
-      newWindow.remove()
-      console.log(this.webSocket)
-      this.webSocket.close()
-    })
+    windowTitle.appendChild(this.closeButton)
 
     this.div.appendChild(newWindow)
     this.movingWindow()
+
+    this.closeButton.addEventListener('click', event => closeChat(this.webSocket))
+
+    function closeChat (webSocket) {
+      newWindow.remove()
+      console.log(webSocket)
+      webSocket.close()
+    }
   }
 
   movingWindow () {

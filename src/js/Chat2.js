@@ -71,6 +71,7 @@ class Chat2 {
     this.chatDiv.appendChild(messageDiv)
 
     this.chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
+
     let chatData = {
       'type': 'message',
       'data': '',
@@ -119,10 +120,6 @@ class Chat2 {
         textBox.value = ''
       }
     }
-  }
-
-  getWebSocket () {
-    return this.chatSocket
   }
 }
 
