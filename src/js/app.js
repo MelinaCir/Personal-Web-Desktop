@@ -23,7 +23,8 @@ let chatIcon = document.querySelector('#chat-icon')
 
 chatIcon.addEventListener('dblclick', function (event) {
   var chat = new Chat2()
-  var window = new Window('Chat')
+  var webSocket = chat.getWebSocket()
+  var window = new Window('Chat', webSocket)
 
   let content = window.div.querySelector('#moveme')
   content.appendChild(chat.chatDiv)

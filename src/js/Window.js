@@ -1,6 +1,7 @@
 class Window {
-  constructor (title) {
+  constructor (title, webSocket) {
     this.title = title
+    this.webSocket = webSocket
     this.div = document.createElement('div')
     this.div.setAttribute('id', 'window')
     this.createWindow()
@@ -21,7 +22,10 @@ class Window {
 
     closeButton.addEventListener('click', function () {
       newWindow.remove()
+      console.log(this.webSocket)
+      this.webSocket.close()
     })
+
     this.div.appendChild(newWindow)
     this.movingWindow()
   }
@@ -47,6 +51,8 @@ class Window {
       initialX = event.clientX - offsetX
       initialY = event.clientY - offsetY
 
+      container.setAttribute('z-index', 11)
+
       if (event.target === dragWindow) {
         active = true
         console.log(container)
@@ -68,14 +74,14 @@ class Window {
     }
 
     function setTranslate (xPos, yPos, elem) {
-      console.log(elem)
-      console.log(elem.style)
       elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
     }
 
     function stopMove () {
       initialX = currentX
       initialY = currentY
+
+      container.setAttribute('z-index', '9')
 
       active = false
     }

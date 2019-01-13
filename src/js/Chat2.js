@@ -11,6 +11,7 @@ class Chat2 {
     this.chatDiv = document.createElement('div')
     this.chatDiv.setAttribute('id', 'chat')
     this.setupChat()
+    this.chatSocket = ''
   }
 
   setupChat () {
@@ -45,22 +46,22 @@ class Chat2 {
     //   }
     // })
 
-    button.addEventListener('click', event => inputGiven(event))
+    button.addEventListener('click', event => inputGiven(this))
 
-    function inputGiven () {
+    function inputGiven (element) {
       let value = button.previousElementSibling.value
       if (value.length === 0) return
 
       userName = value
       nameStorage.setItem('userName', userName)
 
-      let inputBox = chatDiv.getElementById('username')
-      let question = chatDiv.querySelector('#chat p')
+      let inputBox = document.getElementById('username')
+      let question = document.querySelector('#chat p')
       question.remove()
       inputBox.remove()
       button.remove()
 
-      this.createChat()
+      element.createChat()
     }
   }
 
@@ -69,7 +70,7 @@ class Chat2 {
     messageDiv.setAttribute('id', 'messages')
     this.chatDiv.appendChild(messageDiv)
 
-    let chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
+    this.chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
     let chatData = {
       'type': 'message',
       'data': '',
@@ -78,7 +79,7 @@ class Chat2 {
       'key': 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     }
 
-    chatSocket.addEventListener('message', event => {
+    this.chatSocket.addEventListener('message', event => {
       let answer = JSON.parse(event.data)
 
       if (answer.type !== 'heartbeat') {
@@ -105,20 +106,24 @@ class Chat2 {
 
     let textBox = this.chatDiv.querySelector('#messagebox')
 
-    textBox.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
-        event.preventDefault()
+    textBox.addEventListener('keydown', event => this.sendMessage(event, this, textBox, chatData))
+  }
 
-        if (textBox.value !== '') {
-          chatData.data = textBox.value
-          chatSocket.send(JSON.stringify(chatData))
-          textBox.value = ''
-        }
+  sendMessage (event, element, textBox, chatData) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+
+      if (textBox.value !== '') {
+        chatData.data = textBox.value
+        element.chatSocket.send(JSON.stringify(chatData))
+        textBox.value = ''
       }
-    })
+    }
+  }
+
+  getWebSocket () {
+    return this.chatSocket
   }
 }
-
-// chatSocket.close()
 
 export default Chat2
