@@ -61,19 +61,19 @@ class Window {
     let dragWindow = this.div.querySelector('.moveheader')
     let container = this.div.querySelector('#moveme')
 
-    // container.addEventListener('click', getFocus, false)
+    container.addEventListener('click', getFocus, false)
     container.addEventListener('mousedown', startMove, false)
     container.addEventListener('mousemove', drag, false)
     container.addEventListener('mouseup', stopMove, false)
     container.addEventListener('mouseleave', stopMove, false)
 
-    // function getFocus () {
-    //   console.log('focus ' + zCounter)
-    //   // zCounter = zCounter += 1
-    //   // console.log('focus ' + zCounter)
-    //   // container.style.zIndex = zCounter
-    //   container.focus()
-    // }
+    function getFocus () {
+      console.log('focus ' + zCounter)
+      zCounter = zCounter += 1
+      console.log('focus ' + zCounter)
+      container.style.zIndex = zCounter
+      container.focus()
+    }
     function startMove (event) {
       container.style.zIndex = '10'
       initialX = event.clientX - offsetX
@@ -115,6 +115,9 @@ class Window {
 
       active = false
     }
+    this.counter = zCounter
+    console.log('at the end ' + this.counter)
+    return this.counter
   }
 }
 

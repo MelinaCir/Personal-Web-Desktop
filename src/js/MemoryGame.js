@@ -12,6 +12,9 @@ class MemoryGame {
     this.createMemoryBase()
   }
 
+  /**
+   * Creates the base of the Memory Game.
+   */
   createMemoryBase () {
     let memoryTpl = document.createElement('template')
     this.memoryDiv.appendChild(memoryTpl)
@@ -21,7 +24,54 @@ class MemoryGame {
                   <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
               </div>
     `
-    this.createMemory(4, 4, memoryTpl)
+    this.createMemorySize(memoryTpl)
+    // this.createMemory(4, 4, memoryTpl)
+  }
+
+  createMemorySize (template) {
+    const choiceTemplate = document.createElement('template')
+    choiceTemplate.innerHTML = /* html */ `
+      <p>Choose size of Memory Game:</p>
+      <button id="memorybutton">Two x two</button>
+  `
+    let choiceClone = choiceTemplate.content.cloneNode(true)
+    this.memoryDiv.appendChild(choiceClone)
+
+    this.testing()
+
+    // // let aTwo = document.createElement('a')
+    // let twoTwo = document.createElement('button')
+    // // twoTwo.src = 'image/noungrid2.svg'
+    // twoTwo.innerText = 'Test'
+    // twoTwo.setAttribute('class', 'memorysize')
+    // // aTwo.appendChild(twoTwo)
+    // this.memoryDiv.appendChild(twoTwo)
+
+    // let threeThree = document.createElement('img')
+    // threeThree.src = 'image/noun_grid_45663.svg'
+    // threeThree.setAttribute('class', 'memorysize')
+    // this.memoryDiv.appendChild(threeThree)
+
+    // let fourFour = document.createElement('img')
+    // fourFour.src = 'image/noun_grid_45666.svg'
+    // fourFour.setAttribute('class', 'memorysize')
+    // this.memoryDiv.appendChild(fourFour)
+
+    // // this.testing(twoTwo, template)
+  }
+  testing () {
+    let twoTwo = this.memoryDiv.querySelector('#memorybutton')
+    console.log(twoTwo)
+
+    twoTwo.addEventListener('click', setupGame(this))
+
+    function setupGame (element, template) {
+      twoTwo.remove()
+      console.log('clicked')
+      // threeThree.remove()
+      // fourFour.remove()
+      // element.createMemory(2, 2, template)
+    }
   }
 
   createMemory (rows, cols, memdiv) {
@@ -51,25 +101,9 @@ class MemoryGame {
       }
     })
 
-    // div.addEventListener('click', function (event) {
-    //   event.preventDefault()
-    //   let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
-    //   let index = parseInt(img.getAttribute('data-bricknumber'))
-    //   this.turnBrick(tiles[index], img, rows, cols)
-    // })
-
     div.addEventListener('click', event => turnBrick(event))
 
     this.memoryDiv.appendChild(div)
-
-    // prepareBricks (event, tiles, rows, cols) {
-    //   event.preventDefault()
-
-    //   let img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
-    //   let index = parseInt(img.getAttribute('data-bricknumber'))
-
-    //   this.turnBrick(tiles, index, img, rows, cols)
-    // }
 
     function turnBrick (event) {
       event.preventDefault()

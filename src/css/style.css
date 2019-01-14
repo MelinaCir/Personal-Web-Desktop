@@ -139,6 +139,11 @@ body, html {
   position: absolute;
 }
 
+.memorysize {
+  width: 60px;
+  margin: 20px;
+}
+
 /* Drawing */
 
 #drawing {
