@@ -3,7 +3,11 @@ Created by: Melina Cirverius
 Contact: mc222ap [at] student.lnu.student
 
 /* ARTWORK */
-grid by Ralf Schmitzer from the Noun Project
+grid by useiconic.com from the Noun Project
+
+chat by i cons from the Noun Project
+
+drawing by Aleksandr Vector from the Noun Project
 
 /* SITE */
 Last Update: 2019/01/02

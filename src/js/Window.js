@@ -1,7 +1,6 @@
 class Window {
-  constructor (title, webSocket) {
+  constructor (title) {
     this.title = title
-    this.webSocket = webSocket
     this.div = document.createElement('div')
     this.div.setAttribute('id', 'window')
     this.createWindow()
@@ -14,8 +13,9 @@ class Window {
 
     let windowTitle = document.createElement('div')
     windowTitle.setAttribute('class', 'moveheader')
-    windowTitle.innerText = this.title
     newWindow.appendChild(windowTitle)
+
+    this.setWindowIcon(windowTitle)
 
     this.closeButton = document.createElement('button')
     this.closeButton.setAttribute('id', 'closebutton')
@@ -25,13 +25,23 @@ class Window {
     this.div.appendChild(newWindow)
     this.movingWindow()
 
-    this.closeButton.addEventListener('click', event => closeChat(this.webSocket))
-
-    function closeChat (webSocket) {
+    this.closeButton.addEventListener('click', function (event) {
       newWindow.remove()
-      console.log(webSocket)
-      webSocket.close()
+    })
+  }
+
+  setWindowIcon (windowTitle) {
+    let icon = document.createElement('img')
+    icon.setAttribute('class', 'window-icon')
+
+    if (this.title === 'Memory') {
+      icon.src = 'image/noungrid2.svg'
+    } else if (this.title === 'Chat') {
+      icon.src = 'image/noun_chat_945229.svg'
+    } else if (this.title === 'Drawing') {
+      icon.src = 'image/noun_drawing_921966.svg'
     }
+    windowTitle.appendChild(icon)
   }
 
   movingWindow () {
@@ -59,7 +69,6 @@ class Window {
 
       if (event.target === dragWindow) {
         active = true
-        console.log(container)
         container.focus()
       }
     }
