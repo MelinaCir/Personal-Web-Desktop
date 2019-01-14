@@ -48,7 +48,7 @@ body, html {
 /* Desktop Window */
 #moveme {
   position: absolute;
-  z-index: 9;
+  z-index: 1;
   background-color: rgb(196, 245, 253);
   border: 1px solid black;
   text-align: center;
@@ -63,8 +63,8 @@ body, html {
 
 .moveheader {
   padding: 5px;
-  z-index: 10;
-  background-color: blueviolet;
+  z-index: 2;
+  background-color: #760dd8;
   touch-action: none;
   user-select: none;
   text-align: center;

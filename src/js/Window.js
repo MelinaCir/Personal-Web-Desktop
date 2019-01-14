@@ -1,6 +1,7 @@
 class Window {
-  constructor (title) {
+  constructor (title, counter) {
     this.title = title
+    this.counter = counter
     this.div = document.createElement('div')
     this.div.setAttribute('id', 'window')
     this.createWindow()
@@ -10,6 +11,7 @@ class Window {
   createWindow () {
     let newWindow = document.createElement('div')
     newWindow.setAttribute('id', 'moveme')
+    newWindow.setAttribute('tabindex', '1')
 
     let windowTitle = document.createElement('div')
     windowTitle.setAttribute('class', 'moveheader')
@@ -53,23 +55,32 @@ class Window {
     let offsetX = 0
     let offsetY = 0
 
+    // this.counter += 1
+    let zCounter = this.counter
+
     let dragWindow = this.div.querySelector('.moveheader')
     let container = this.div.querySelector('#moveme')
 
+    // container.addEventListener('click', getFocus, false)
     container.addEventListener('mousedown', startMove, false)
     container.addEventListener('mousemove', drag, false)
     container.addEventListener('mouseup', stopMove, false)
     container.addEventListener('mouseleave', stopMove, false)
 
+    // function getFocus () {
+    //   console.log('focus ' + zCounter)
+    //   // zCounter = zCounter += 1
+    //   // console.log('focus ' + zCounter)
+    //   // container.style.zIndex = zCounter
+    //   container.focus()
+    // }
     function startMove (event) {
+      container.style.zIndex = '10'
       initialX = event.clientX - offsetX
       initialY = event.clientY - offsetY
 
-      container.setAttribute('z-index', 11)
-
       if (event.target === dragWindow) {
         active = true
-        container.focus()
       }
     }
 
@@ -90,11 +101,17 @@ class Window {
       elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
     }
 
+    function loseFocus () {
+      stopMove()
+      container.blur()
+    }
+
     function stopMove () {
+      container.style.zIndex = '3'
       initialX = currentX
       initialY = currentY
 
-      container.setAttribute('z-index', '9')
+      // container.blur()
 
       active = false
     }
