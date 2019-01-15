@@ -16,7 +16,7 @@ class Window {
     this.closeButton = ''
   }
   /**
-   *
+   * Creates a new window.
    */
   createWindow () {
     let newWindow = document.createElement('div')
@@ -42,6 +42,11 @@ class Window {
     })
   }
 
+  /**
+   * Sets an icon in the top bar of the window.
+   *
+   * @param {string} windowTitle - the title of the window and application.
+   */
   setWindowIcon (windowTitle) {
     let icon = document.createElement('img')
     icon.setAttribute('class', 'window-icon')
@@ -56,6 +61,9 @@ class Window {
     windowTitle.appendChild(icon)
   }
 
+  /**
+   *
+   */
   movingWindow () {
     let active = false
     let currentX
@@ -71,21 +79,22 @@ class Window {
     let dragWindow = this.div.querySelector('.moveheader')
     let container = this.div.querySelector('#moveme')
 
-    // container.addEventListener('click', getFocus, false)
+    container.addEventListener('click', getFocus, false)
     container.addEventListener('mousedown', startMove, false)
     container.addEventListener('mousemove', drag, false)
     container.addEventListener('mouseup', stopMove, false)
     container.addEventListener('mouseleave', stopMove, false)
 
-    // function getFocus () {
-    //   console.log('focus ' + zCounter)
-    //   zCounter = zCounter += 1
-    //   console.log('focus ' + zCounter)
-    //   container.style.zIndex = zCounter
-    //   container.focus()
-    // }
+    container.addEventListener('click', loseFocus, false)
+    function getFocus () {
+      console.log('focus ' + zCounter)
+      zCounter = zCounter += 1
+      console.log('focus ' + zCounter)
+      container.style.zIndex = zCounter
+      container.focus()
+    }
     function startMove (event) {
-      container.style.zIndex = '10'
+      // container.style.zIndex = '10'
       initialX = event.clientX - offsetX
       initialY = event.clientY - offsetY
 
@@ -111,13 +120,15 @@ class Window {
       elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
     }
 
-    function loseFocus () {
-      stopMove()
-      container.blur()
+    function loseFocus (event) {
+      if (event.target !== container) {
+        console.log('clicked here')
+        container.blur()
+      }
     }
 
     function stopMove () {
-      container.style.zIndex = '3'
+      // container.style.zIndex = '3'
       initialX = currentX
       initialY = currentY
 

@@ -6,6 +6,11 @@
  * @version 1.0
  */
 
+/**
+  * Class representing a drawing application.
+  *
+  * @class DrawingPics
+  */
 class DrawingPics {
   constructor () {
     this.drawingDiv = document.createElement('div')
@@ -34,11 +39,11 @@ class DrawingPics {
   }
 
   createDrawingCanvas () {
-    let drawingCanvas = this.elementCreate('canvas', { id: 'drawingcanvas', width: 300, height: 200 })
+    let drawingCanvas = this.elementCreate('canvas', { id: 'drawingcanvas', width: 400, height: 300 })
     let drawingContext = drawingCanvas.getContext('2d')
 
     this.drawingDiv.appendChild(drawingCanvas)
-    this.createColorAndSize()
+    this.createColor()
 
     let mouseX
     let mouseY
@@ -47,11 +52,9 @@ class DrawingPics {
     let offsetY = 0
 
     let colorSelect = this.drawingDiv.querySelector('select')
-    colorSelect.addEventListener('change', function (event) {
+    colorSelect.addEventListener('change', function () {
       let color = colorSelect.value
-      console.log(color)
       drawingContext.strokeStyle = '' + color
-      console.log(drawingContext.strokeStyle)
     })
 
     drawingCanvas.addEventListener('mousedown', setPosition)
@@ -89,16 +92,17 @@ class DrawingPics {
     }
   }
 
-  createColorAndSize (drawingContext) {
+  createColor () {
     let colorTempl = document.createElement('template')
     colorTempl.innerHTML = /* html */ `
-      <select name="colors" id="colorselect">
-        <option value="black">Black</option>
-        <option value="red">Red</option>
-        <option value="green">Green</option>
-        <option value="blue">Blue</option>
-        <option value="yellow">Yellow</option>
-      </select>
+      <p>Color:</p>
+        <select name="colors" id="colorselect">
+          <option value="black">Black</option>
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="yellow">Yellow</option>
+        </select>
     `
     let colorClone = colorTempl.content.cloneNode(true)
     this.drawingDiv.appendChild(colorClone)

@@ -12,11 +12,12 @@ import DrawingPics from './DrawingPics.js'
 import Counter from './Counter.js'
 
 let windowCounter = new Counter()
+let testCounter = windowCounter.counter
 
-// "button" for memory game
 document.querySelector('#memory-icon').addEventListener('dblclick', function (event) {
   windowCounter.addOne()
   console.log('mem ' + windowCounter.counter)
+  console.log('mem test ' + testCounter)
   let memoryGame = new MemoryGame()
 
   let memoryWindow = new Window('Memory', windowCounter.counter)
@@ -32,7 +33,7 @@ document.querySelector('#chat-icon').addEventListener('dblclick', function (even
   windowCounter.addOne()
 
   var chat = new Chat()
-  var chatWindow = new Window('Chat', windowCounter)
+  var chatWindow = new Window('Chat', windowCounter.counter)
 
   let content = chatWindow.div.querySelector('#moveme')
   content.appendChild(chat.chatDiv)
@@ -42,8 +43,10 @@ document.querySelector('#chat-icon').addEventListener('dblclick', function (even
 
 document.querySelector('#drawing-icon').addEventListener('dblclick', function (event) {
   console.log('click')
+  windowCounter.addOne()
+
   var draw = new DrawingPics()
-  var window = new Window('Drawing', windowCounter)
+  var window = new Window('Drawing', windowCounter.counter)
 
   let content = window.div.querySelector('#moveme')
   content.appendChild(draw.drawingDiv)
