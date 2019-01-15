@@ -6,39 +6,52 @@
  * @version 1.1
  */
 
+import elementCreate from './elementCreate.js'
+
+/**
+  * Class representing a desktop window.
+  *
+  * @class Window
+  */
 class Window {
+  /**
+   * Creates an instance representing a desktop window.
+   *
+   * @param {string} title
+   * @param {storage} storage
+   */
   constructor (title, storage) {
+    /**
+     * The title for the window.
+     */
     this.title = title
+    /**
+     * The session storage.
+     */
     this.storage = storage
-    this.div = document.createElement('div')
-    this.div.setAttribute('id', 'window')
+    /**
+     * The div containing the window.
+     */
+    this.div = elementCreate.create('div', { id: 'window' })
     this.createWindow()
-    this.closeButton = ''
-    this.zIndexStorage = window.sessionStorage
   }
   /**
    * Creates a new window.
    */
   createWindow () {
-    let newWindow = document.createElement('div')
-    newWindow.setAttribute('id', 'moveme')
-    newWindow.setAttribute('tabindex', '1')
-
-    let windowTitle = document.createElement('div')
-    windowTitle.setAttribute('class', 'moveheader')
+    let newWindow = elementCreate.create('div', { id: 'moveme' })
+    let windowTitle = elementCreate.create('div', { class: 'moveheader' })
     newWindow.appendChild(windowTitle)
 
     this.setWindowIcon(windowTitle)
 
-    this.closeButton = document.createElement('button')
-    this.closeButton.setAttribute('id', 'closebutton')
-
-    windowTitle.appendChild(this.closeButton)
+    let closeButton = elementCreate.create('button', { id: 'closebutton' })
+    windowTitle.appendChild(closeButton)
 
     this.div.appendChild(newWindow)
     this.movingWindow()
 
-    this.closeButton.addEventListener('click', function (event) {
+    closeButton.addEventListener('click', function (event) {
       newWindow.remove()
     })
   }
@@ -49,8 +62,7 @@ class Window {
    * @param {string} windowTitle - the title of the window and application.
    */
   setWindowIcon (windowTitle) {
-    let icon = document.createElement('img')
-    icon.setAttribute('class', 'window-icon')
+    let icon = elementCreate.create('img', { class: 'window-icon' })
 
     if (this.title === 'Memory') {
       icon.src = 'image/noungrid2.svg'
@@ -63,7 +75,7 @@ class Window {
   }
 
   /**
-   *
+   * Creates functionality to move window.
    */
   movingWindow () {
     let active = false
@@ -74,9 +86,7 @@ class Window {
     let offsetX = 0
     let offsetY = 0
 
-    // this.counter += 1
     let zIndex = this.storage
-    console.log(zIndex)
 
     let dragWindow = this.div.querySelector('.moveheader')
     let container = this.div.querySelector('#moveme')
@@ -87,6 +97,9 @@ class Window {
     container.addEventListener('mouseup', stopMove, false)
     container.addEventListener('mouseleave', stopMove, false)
 
+    /**
+     * Sets a new z-index to window when active.
+     */
     function activeWindow () {
       let theIndex = JSON.parse(zIndex.getItem('zIndex'))
       container.style.zIndex = theIndex
@@ -94,6 +107,11 @@ class Window {
       zIndex.setItem('zIndex', theIndex)
     }
 
+    /**
+     * Sets parameters to start moving window.
+     *
+     * @param {event} event
+     */
     function startMove (event) {
       activeWindow()
       initialX = event.clientX - offsetX
@@ -104,6 +122,11 @@ class Window {
       }
     }
 
+    /**
+     * Moves the window efter mouse movement.
+     *
+     * @param {event} event
+     */
     function drag (event) {
       if (active) {
         event.preventDefault()
@@ -117,10 +140,19 @@ class Window {
       }
     }
 
+    /**
+     * Adds style to window that moves the window.
+     * @param {number} xPos
+     * @param {number} yPos
+     * @param {element} elem
+     */
     function setTranslate (xPos, yPos, elem) {
       elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
     }
 
+    /**
+     * Stops movement of window after mouse event.
+     */
     function stopMove () {
       initialX = currentX
       initialY = currentY
@@ -130,4 +162,5 @@ class Window {
   }
 }
 
+// Exports
 export default Window

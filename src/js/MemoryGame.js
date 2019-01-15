@@ -6,6 +6,8 @@
  * @version 1.2
  */
 
+import elementCreate from './elementCreate.js'
+
 /**
   * Class representing a memory game.
   *
@@ -21,8 +23,7 @@ class MemoryGame {
     /**
      * The div element containing the game.
      */
-    this.memoryDiv = document.createElement('div')
-    this.memoryDiv.setAttribute('id', 'memoryblock')
+    this.memoryDiv = elementCreate.create('div', { id: 'memoryblock' })
     this.createMemoryBase()
   }
 
@@ -48,6 +49,7 @@ class MemoryGame {
    */
   createMemoryChoice (template) {
     const choiceTemplate = document.createElement('template')
+
     choiceTemplate.innerHTML = /* html */ `
       <p>Choose size of Memory Game:</p>
       <img src="image/noungrid2.svg" id="twotwo" class="memorysize">
@@ -175,8 +177,7 @@ class MemoryGame {
         if (pairs === (rows * cols) / 2) {
           // Timer that shows winning results after last tiles have been removed.
           setTimeout(function () {
-            let winnerText = document.createElement('p')
-            winnerText.setAttribute('id', 'winnertext')
+            let winnerText = elementCreate.create('p', { id: 'winnertext' })
             winnerText.innerText = 'Winner!\n You used ' + tries + ' tries.'
             let div = document.querySelector('#memoryblock')
             div.insertBefore(winnerText, div.childNodes[0])
@@ -209,5 +210,5 @@ class MemoryGame {
     return imgArr
   }
 }
-// Export
+// Exports
 export default MemoryGame

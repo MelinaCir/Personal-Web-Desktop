@@ -12,9 +12,7 @@ body, html {
 .bg {
   width: 100%;
   position: fixed;
-  /* background-position: center; */
   background-repeat: no-repeat;
-  /* background-size: cover; */
   background-attachment: fixed;
   overflow: auto;
 }

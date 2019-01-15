@@ -6,6 +6,8 @@
  * @version 1.1
  */
 
+import elementCreate from './elementCreate.js'
+
 /**
   * Class representing a chat application.
   *
@@ -25,8 +27,7 @@ class Chat {
     /**
      * The div element containing the chat.
      */
-    this.chatDiv = document.createElement('div')
-    this.chatDiv.setAttribute('id', 'chat')
+    this.chatDiv = elementCreate.create('div', { id: 'chat' })
     /**
      * A variable for the websocket.
      */
@@ -89,8 +90,7 @@ class Chat {
    * Creates the chat application.
    */
   createChat () {
-    let messageDiv = document.createElement('div')
-    messageDiv.setAttribute('id', 'messages')
+    let messageDiv = elementCreate.create('div', { id: 'messages' })
     this.chatDiv.appendChild(messageDiv)
 
     this.chatSocket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/', 'chatchannel')
@@ -99,7 +99,7 @@ class Chat {
       'type': 'message',
       'data': '',
       'username': this.nameStorage.getItem('userName'),
-      'channel': 'testChannel',
+      'channel': 'myOwnChannel',
       'key': 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
     }
 
@@ -107,8 +107,7 @@ class Chat {
       let answer = JSON.parse(event.data)
 
       if (answer.type !== 'heartbeat') {
-        let user = document.createElement('h3')
-        user.setAttribute('id', 'user')
+        let user = elementCreate.create('h3', { id: 'user' })
         user.innerText = answer.username
         this.chatDiv.querySelector('#messages').appendChild(user)
 
@@ -117,15 +116,10 @@ class Chat {
         this.chatDiv.querySelector('#messages').appendChild(userMessage)
       }
       messageDiv.scrollTop = messageDiv.scrollHeight
-
-      console.log(event.data)
     })
 
-    let messageBox = document.createElement('textarea')
-    messageBox.setAttribute('name', 'textbox')
-    messageBox.setAttribute('id', 'messagebox')
-    messageBox.setAttribute('cols', '30')
-    messageBox.setAttribute('rows', '5')
+    let messageBox = elementCreate.create('textarea',
+      { name: 'textbox', id: 'messagebox', cols: 30, rows: 5 })
     this.chatDiv.appendChild(messageBox)
 
     let textBox = this.chatDiv.querySelector('#messagebox')
@@ -155,5 +149,5 @@ class Chat {
   }
 }
 
-// Export
+// Exports
 export default Chat

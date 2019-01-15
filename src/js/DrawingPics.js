@@ -6,6 +6,7 @@
  * @version 1.0
  */
 
+import elementCreate from './elementCreate.js'
 /**
   * Class representing a drawing application.
   *
@@ -21,41 +22,17 @@ class DrawingPics {
     /**
      * The div containing the application.
      */
-    this.drawingDiv = document.createElement('div')
-    this.drawingDiv.setAttribute('id', 'drawing')
+    this.drawingDiv = elementCreate.create('div', { id: 'drawing' })
     this.drawingContext = ''
     this.createDrawingCanvas()
-  }
-
-  /**
-   *
-   * @param {string} name
-   * @param {object} attributes
-   */
-  elementCreate (name, attributes) {
-    let node = document.createElement(name)
-    if (attributes) {
-      for (let attribute in attributes) {
-        if (attributes.hasOwnProperty(attribute)) {
-          node.setAttribute(attribute, attributes[attribute])
-        }
-      }
-    }
-    for (let i = 2; i < arguments.length; i++) {
-      let child = arguments[i]
-      if (typeof child === 'string') {
-        child = document.createTextNode(child)
-      }
-      node.appendChild(child)
-    }
-    return node
   }
 
   /**
    * Creates the drawing application.
    */
   createDrawingCanvas () {
-    let drawingCanvas = this.elementCreate('canvas', { id: 'drawingcanvas', width: 400, height: 300 })
+    let drawingCanvas = elementCreate.create('canvas',
+      { id: 'drawingcanvas', width: 400, height: 300 })
     let drawingContext = drawingCanvas.getContext('2d')
 
     this.drawingDiv.appendChild(drawingCanvas)
@@ -68,6 +45,7 @@ class DrawingPics {
     let offsetY = 0
 
     let colorSelect = this.drawingDiv.querySelector('select')
+
     colorSelect.addEventListener('change', function () {
       let color = colorSelect.value
       drawingContext.strokeStyle = '' + color
@@ -141,5 +119,5 @@ class DrawingPics {
   }
 }
 
-// Export
+// Exports
 export default DrawingPics
