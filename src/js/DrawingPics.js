@@ -12,13 +12,26 @@
   * @class DrawingPics
   */
 class DrawingPics {
+  /**
+   * Creates an instance representing a drawing application.
+   *
+   * @constructor
+   */
   constructor () {
+    /**
+     * The div containing the application.
+     */
     this.drawingDiv = document.createElement('div')
     this.drawingDiv.setAttribute('id', 'drawing')
     this.drawingContext = ''
     this.createDrawingCanvas()
   }
 
+  /**
+   *
+   * @param {string} name
+   * @param {object} attributes
+   */
   elementCreate (name, attributes) {
     let node = document.createElement(name)
     if (attributes) {
@@ -38,6 +51,9 @@ class DrawingPics {
     return node
   }
 
+  /**
+   * Creates the drawing application.
+   */
   createDrawingCanvas () {
     let drawingCanvas = this.elementCreate('canvas', { id: 'drawingcanvas', width: 400, height: 300 })
     let drawingContext = drawingCanvas.getContext('2d')
@@ -62,10 +78,18 @@ class DrawingPics {
     drawingCanvas.addEventListener('mouseup', stopPainting)
     drawingCanvas.addEventListener('mouseleave', stopPainting)
 
+    /**
+     * Set boolean value paint to false to stop painting.
+     */
     function stopPainting () {
       paint = false
     }
 
+    /**
+     * Sets the positions of the mouse to draw.
+     *
+     * @param {event} event
+     */
     function setPosition (event) {
       paint = true
 
@@ -75,6 +99,11 @@ class DrawingPics {
       mouseY = (event.y - offsetY) - canvasPosition.top
     }
 
+    /**
+     * Draws lines on canvas from mouse movement.
+     *
+     * @param {event} event
+     */
     function draw (event) {
       if (paint) {
         if (event.buttons !== 1) return
@@ -92,6 +121,9 @@ class DrawingPics {
     }
   }
 
+  /**
+   * Creates a select element to choose color of brush.
+   */
   createColor () {
     let colorTempl = document.createElement('template')
     colorTempl.innerHTML = /* html */ `
@@ -109,4 +141,5 @@ class DrawingPics {
   }
 }
 
+// Export
 export default DrawingPics

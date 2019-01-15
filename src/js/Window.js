@@ -7,9 +7,9 @@
  */
 
 class Window {
-  constructor (title, counter) {
+  constructor (title, storage) {
     this.title = title
-    this.counter = counter
+    this.storage = storage
     this.div = document.createElement('div')
     this.div.setAttribute('id', 'window')
     this.createWindow()
@@ -75,27 +75,27 @@ class Window {
     let offsetY = 0
 
     // this.counter += 1
-    let zCounter = this.counter
+    let zIndex = this.storage
+    console.log(zIndex)
 
     let dragWindow = this.div.querySelector('.moveheader')
     let container = this.div.querySelector('#moveme')
 
-    // container.addEventListener('click', getFocus, false)
+    container.addEventListener('click', activeWindow, false)
     container.addEventListener('mousedown', startMove, false)
     container.addEventListener('mousemove', drag, false)
     container.addEventListener('mouseup', stopMove, false)
     container.addEventListener('mouseleave', stopMove, false)
 
-    container.addEventListener('click', loseFocus, false)
+    function activeWindow () {
+      let theIndex = JSON.parse(zIndex.getItem('zIndex'))
+      container.style.zIndex = theIndex
+      theIndex++
+      zIndex.setItem('zIndex', theIndex)
+    }
 
-    // function getFocus () {
-    //   console.log('focus ' + zCounter)
-    //   zCounter = zCounter += 1
-    //   console.log('focus ' + zCounter)
-    //   container.focus()
-    // }
     function startMove (event) {
-      // container.style.zIndex = '10'
+      activeWindow()
       initialX = event.clientX - offsetX
       initialY = event.clientY - offsetY
 
@@ -121,25 +121,12 @@ class Window {
       elem.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
     }
 
-    function loseFocus (event) {
-      if (event.target !== container) {
-        console.log('clicked here')
-        container.blur()
-      }
-    }
-
     function stopMove () {
-      // container.style.zIndex = '3'
       initialX = currentX
       initialY = currentY
 
-      // container.blur()
-
       active = false
     }
-    this.counter = zCounter
-    console.log('at the end ' + this.counter)
-    return this.counter
   }
 }
 

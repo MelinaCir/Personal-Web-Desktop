@@ -6,15 +6,37 @@
  * @version 1.1
  */
 
+/**
+  * Class representing a chat application.
+  *
+  * @class Chat
+  */
 class Chat {
+  /**
+   * Creates an intance representing a chat application.
+   *
+   * @constructor
+   */
   constructor () {
+    /**
+     * Session storage to save username.
+     */
     this.nameStorage = window.sessionStorage
+    /**
+     * The div element containing the chat.
+     */
     this.chatDiv = document.createElement('div')
     this.chatDiv.setAttribute('id', 'chat')
-    this.setupChat()
+    /**
+     * A variable for the websocket.
+     */
     this.chatSocket = ''
+    this.setupChat()
   }
 
+  /**
+   * Creates the starting point for the app to let user choose a username.
+   */
   setupChat () {
     let name = this.nameStorage.getItem('userName')
 
@@ -34,6 +56,11 @@ class Chat {
     }
   }
 
+  /**
+   * Clears the div to create the chat.
+   *
+   * @param {session storage} nameStorage
+   */
   startChat (nameStorage) {
     let button = this.chatDiv.querySelector('#submitbtn')
 
@@ -58,6 +85,9 @@ class Chat {
     }
   }
 
+  /**
+   * Creates the chat application.
+   */
   createChat () {
     let messageDiv = document.createElement('div')
     messageDiv.setAttribute('id', 'messages')
@@ -103,6 +133,14 @@ class Chat {
     textBox.addEventListener('keydown', event =>
       sendMessage(event, chatSocket, textBox, chatData))
 
+    /**
+       * Sends messages to server via the web socket.
+       *
+       * @param {event} event
+       * @param {WebSocket} chatSocket
+       * @param {element} textBox
+       * @param {object} chatData
+       */
     function sendMessage (event, chatSocket, textBox, chatData) {
       if (event.key === 'Enter') {
         event.preventDefault()
@@ -117,4 +155,5 @@ class Chat {
   }
 }
 
+// Export
 export default Chat
