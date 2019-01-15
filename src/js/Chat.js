@@ -39,14 +39,6 @@ class Chat {
 
     let userName
 
-    // let input = this.chatDiv.querySelector('#username')
-
-    // input.addEventListener('keydown', event => {
-    //   if (event.key === 'Enter') {
-    //     inputGiven()
-    //   }
-    // })
-
     button.addEventListener('click', event => inputGiven(this))
 
     function inputGiven (element) {

@@ -10,6 +10,7 @@ class DrawingPics {
   constructor () {
     this.drawingDiv = document.createElement('div')
     this.drawingDiv.setAttribute('id', 'drawing')
+    this.drawingContext = ''
     this.createDrawingCanvas()
   }
 
@@ -37,6 +38,7 @@ class DrawingPics {
     let drawingContext = drawingCanvas.getContext('2d')
 
     this.drawingDiv.appendChild(drawingCanvas)
+    this.createColorAndSize()
 
     let mouseX
     let mouseY
@@ -44,12 +46,17 @@ class DrawingPics {
     let offsetX = 0
     let offsetY = 0
 
+    let colorSelect = this.drawingDiv.querySelector('select')
+    colorSelect.addEventListener('change', function (event) {
+      let color = colorSelect.value
+      console.log(color)
+      drawingContext.strokeStyle = '' + color
+      console.log(drawingContext.strokeStyle)
+    })
+
     drawingCanvas.addEventListener('mousedown', setPosition)
-
     drawingCanvas.addEventListener('mousemove', draw)
-
     drawingCanvas.addEventListener('mouseup', stopPainting)
-
     drawingCanvas.addEventListener('mouseleave', stopPainting)
 
     function stopPainting () {
@@ -70,7 +77,6 @@ class DrawingPics {
         if (event.buttons !== 1) return
 
         drawingContext.beginPath()
-        drawingContext.strokeStyle = '#df4b26'
         drawingContext.lineJoin = 'round'
         drawingContext.lineCap = 'round'
         drawingContext.lineWidth = 5
@@ -81,6 +87,21 @@ class DrawingPics {
         drawingContext.stroke()
       }
     }
+  }
+
+  createColorAndSize (drawingContext) {
+    let colorTempl = document.createElement('template')
+    colorTempl.innerHTML = /* html */ `
+      <select name="colors" id="colorselect">
+        <option value="black">Black</option>
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="yellow">Yellow</option>
+      </select>
+    `
+    let colorClone = colorTempl.content.cloneNode(true)
+    this.drawingDiv.appendChild(colorClone)
   }
 }
 

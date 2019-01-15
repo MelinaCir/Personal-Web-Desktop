@@ -1,4 +1,4 @@
-/* Main */
+/* --------- Main ----------- */
 body, html {
   width: 100%;
   margin: 0;
@@ -45,7 +45,7 @@ body, html {
 }
 
 
-/* Desktop Window */
+/* ---------- Desktop Window ------------- */
 #moveme {
   position: absolute;
   z-index: 1;
@@ -70,7 +70,7 @@ body, html {
   text-align: center;
 }
 
-/* Chat */
+/* ------------- Chat ------------- */
 #messages p {
   text-align: left;
   font-size: 13px;
@@ -103,7 +103,6 @@ body, html {
   font-size: 12px;
   text-align: left;
   font-weight: 10;
-  
 }
 
 #username {
@@ -114,7 +113,7 @@ body, html {
   height: 25px;
 }
 
-/* Memory */
+/* ------------ Memory ----------- */
 #memoryblock {
   margin-top: 20px;
   text-align: center;
@@ -144,7 +143,7 @@ body, html {
   margin: 20px;
 }
 
-/* Drawing */
+/* ------------- Drawing ------------ */
 
 #drawing {
   z-index: 9;

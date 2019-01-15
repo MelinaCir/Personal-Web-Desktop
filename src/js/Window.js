@@ -15,7 +15,9 @@ class Window {
     this.createWindow()
     this.closeButton = ''
   }
-
+  /**
+   *
+   */
   createWindow () {
     let newWindow = document.createElement('div')
     newWindow.setAttribute('id', 'moveme')
