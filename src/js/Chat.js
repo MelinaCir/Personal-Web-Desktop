@@ -34,7 +34,7 @@ class Chat {
     }
   }
 
-  startChat (nameStorage, chatDiv) {
+  startChat (nameStorage) {
     let button = this.chatDiv.querySelector('#submitbtn')
 
     let userName
@@ -99,18 +99,19 @@ class Chat {
     this.chatDiv.appendChild(messageBox)
 
     let textBox = this.chatDiv.querySelector('#messagebox')
+    let chatSocket = this.chatSocket
+    textBox.addEventListener('keydown', event =>
+      sendMessage(event, chatSocket, textBox, chatData))
 
-    textBox.addEventListener('keydown', event => this.sendMessage(event, this, textBox, chatData))
-  }
+    function sendMessage (event, chatSocket, textBox, chatData) {
+      if (event.key === 'Enter') {
+        event.preventDefault()
 
-  sendMessage (event, element, textBox, chatData) {
-    if (event.key === 'Enter') {
-      event.preventDefault()
-
-      if (textBox.value !== '') {
-        chatData.data = textBox.value
-        element.chatSocket.send(JSON.stringify(chatData))
-        textBox.value = ''
+        if (textBox.value !== '') {
+          chatData.data = textBox.value
+          chatSocket.send(JSON.stringify(chatData))
+          textBox.value = ''
+        }
       }
     }
   }

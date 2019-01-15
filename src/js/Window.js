@@ -14,6 +14,7 @@ class Window {
     this.div.setAttribute('id', 'window')
     this.createWindow()
     this.closeButton = ''
+    this.zIndexStorage = window.sessionStorage
   }
   /**
    * Creates a new window.
@@ -79,20 +80,20 @@ class Window {
     let dragWindow = this.div.querySelector('.moveheader')
     let container = this.div.querySelector('#moveme')
 
-    container.addEventListener('click', getFocus, false)
+    // container.addEventListener('click', getFocus, false)
     container.addEventListener('mousedown', startMove, false)
     container.addEventListener('mousemove', drag, false)
     container.addEventListener('mouseup', stopMove, false)
     container.addEventListener('mouseleave', stopMove, false)
 
     container.addEventListener('click', loseFocus, false)
-    function getFocus () {
-      console.log('focus ' + zCounter)
-      zCounter = zCounter += 1
-      console.log('focus ' + zCounter)
-      container.style.zIndex = zCounter
-      container.focus()
-    }
+
+    // function getFocus () {
+    //   console.log('focus ' + zCounter)
+    //   zCounter = zCounter += 1
+    //   console.log('focus ' + zCounter)
+    //   container.focus()
+    // }
     function startMove (event) {
       // container.style.zIndex = '10'
       initialX = event.clientX - offsetX
