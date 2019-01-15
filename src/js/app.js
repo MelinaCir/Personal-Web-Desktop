@@ -1,4 +1,11 @@
-import Chat2 from './Chat2.js'
+/**
+ * The starting point of the application.
+ *
+ * @author Melina Cirverius
+ * @version 1.0
+ */
+
+import Chat from './Chat.js'
 import MemoryGame from './MemoryGame.js'
 import Window from './Window.js'
 import DrawingPics from './DrawingPics.js'
@@ -7,8 +14,6 @@ import Counter from './Counter.js'
 let windowCounter = new Counter()
 
 // "button" for memory game
-let memoryIcon = document.querySelector('#memory-icon')
-
 document.querySelector('#memory-icon').addEventListener('dblclick', function (event) {
   windowCounter.addOne()
   console.log('mem ' + windowCounter.counter)
@@ -21,15 +26,12 @@ document.querySelector('#memory-icon').addEventListener('dblclick', function (ev
   document.querySelector('#desktop').appendChild(content)
 })
 
-// "button" for chat
-let chatIcon = document.querySelector('#chat-icon')
-
-chatIcon.addEventListener('dblclick', function (event) {
+document.querySelector('#chat-icon').addEventListener('dblclick', function (event) {
   console.log('before chat ' + windowCounter.counter)
 
   windowCounter.addOne()
 
-  var chat = new Chat2()
+  var chat = new Chat()
   var chatWindow = new Window('Chat', windowCounter)
 
   let content = chatWindow.div.querySelector('#moveme')
@@ -38,9 +40,7 @@ chatIcon.addEventListener('dblclick', function (event) {
   console.log('after chat ' + windowCounter.counter)
 })
 
-let drawingIcon = document.querySelector('#drawing-icon')
-
-drawingIcon.addEventListener('dblclick', function (event) {
+document.querySelector('#drawing-icon').addEventListener('dblclick', function (event) {
   console.log('click')
   var draw = new DrawingPics()
   var window = new Window('Drawing', windowCounter)

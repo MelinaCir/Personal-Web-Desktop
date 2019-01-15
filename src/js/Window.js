@@ -1,3 +1,11 @@
+/**
+ * Module for Window
+ *
+ * @module src/Window
+ * @author Melina Cirverius
+ * @version 1.1
+ */
+
 class Window {
   constructor (title, counter) {
     this.title = title
@@ -61,19 +69,19 @@ class Window {
     let dragWindow = this.div.querySelector('.moveheader')
     let container = this.div.querySelector('#moveme')
 
-    container.addEventListener('click', getFocus, false)
+    // container.addEventListener('click', getFocus, false)
     container.addEventListener('mousedown', startMove, false)
     container.addEventListener('mousemove', drag, false)
     container.addEventListener('mouseup', stopMove, false)
     container.addEventListener('mouseleave', stopMove, false)
 
-    function getFocus () {
-      console.log('focus ' + zCounter)
-      zCounter = zCounter += 1
-      console.log('focus ' + zCounter)
-      container.style.zIndex = zCounter
-      container.focus()
-    }
+    // function getFocus () {
+    //   console.log('focus ' + zCounter)
+    //   zCounter = zCounter += 1
+    //   console.log('focus ' + zCounter)
+    //   container.style.zIndex = zCounter
+    //   container.focus()
+    // }
     function startMove (event) {
       container.style.zIndex = '10'
       initialX = event.clientX - offsetX

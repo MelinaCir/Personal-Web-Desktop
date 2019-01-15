@@ -1,12 +1,26 @@
 /**
- * Class MemoryGame
+ * Module for Memory Game
  *
+ * @module src/MemoryGame
  * @author Melina Cirverius
  * @version 1.2
  */
 
+/**
+  * Class representing a memory game.
+  *
+  * @class MemoryGame
+  */
 class MemoryGame {
+  /**
+   * Creates an instance that represents a memory game.
+   *
+   * @constructor
+   */
   constructor () {
+    /**
+     * The div element containing the game.
+     */
     this.memoryDiv = document.createElement('div')
     this.memoryDiv.setAttribute('id', 'memoryblock')
     this.createMemoryBase()
@@ -24,57 +38,64 @@ class MemoryGame {
                   <a href="#"><img src="image/0.png" alt="Memory brick" /></a>
               </div>
     `
-    this.createMemorySize(memoryTpl)
-    // this.createMemory(4, 4, memoryTpl)
+    this.createMemoryChoice(memoryTpl)
   }
 
-  createMemorySize (template) {
+  /**
+   * Creates choices of size of game board.
+   *
+   * @param {element} template
+   */
+  createMemoryChoice (template) {
     const choiceTemplate = document.createElement('template')
     choiceTemplate.innerHTML = /* html */ `
       <p>Choose size of Memory Game:</p>
-      <button id="memorybutton">Two x two</button>
+      <img src="image/noungrid2.svg" id="twotwo" class="memorysize">
+      <img src="image/noun_grid_45666.svg" id="fourfour" class="memorysize">
   `
     let choiceClone = choiceTemplate.content.cloneNode(true)
     this.memoryDiv.appendChild(choiceClone)
 
-    this.testing()
-
-    // // let aTwo = document.createElement('a')
-    // let twoTwo = document.createElement('button')
-    // // twoTwo.src = 'image/noungrid2.svg'
-    // twoTwo.innerText = 'Test'
-    // twoTwo.setAttribute('class', 'memorysize')
-    // // aTwo.appendChild(twoTwo)
-    // this.memoryDiv.appendChild(twoTwo)
-
-    // let threeThree = document.createElement('img')
-    // threeThree.src = 'image/noun_grid_45663.svg'
-    // threeThree.setAttribute('class', 'memorysize')
-    // this.memoryDiv.appendChild(threeThree)
-
-    // let fourFour = document.createElement('img')
-    // fourFour.src = 'image/noun_grid_45666.svg'
-    // fourFour.setAttribute('class', 'memorysize')
-    // this.memoryDiv.appendChild(fourFour)
-
-    // // this.testing(twoTwo, template)
+    this.createMemorySize(template, this)
   }
-  testing () {
-    let twoTwo = this.memoryDiv.querySelector('#memorybutton')
-    console.log(twoTwo)
 
-    twoTwo.addEventListener('click', setupGame(this))
+  /**
+   * Creates size of game board after choice.
+   *
+   * @param {element} template
+   * @param {element} element
+   */
+  createMemorySize (template, element) {
+    let twoTwo = this.memoryDiv.querySelector('#twotwo')
+    let fourFour = this.memoryDiv.querySelector('#fourfour')
 
-    function setupGame (element, template) {
+    twoTwo.addEventListener('click', function () {
+      removeChoice()
+      element.createMemory(2, 2, template)
+    })
+
+    fourFour.addEventListener('click', function () {
+      removeChoice()
+      element.createMemory(4, 4, template)
+    })
+
+    /**
+     * Removes elements from DOM.
+     */
+    function removeChoice () {
+      twoTwo.previousElementSibling.remove()
       twoTwo.remove()
-      console.log('clicked')
-      // threeThree.remove()
-      // fourFour.remove()
-      // element.createMemory(2, 2, template)
+      fourFour.remove()
     }
   }
 
-  createMemory (rows, cols, memdiv) {
+  /**
+   * Creates memory board with cards.
+   * @param {number} rows
+   * @param {number} cols
+   * @param {template} template
+   */
+  createMemory (rows, cols, template) {
     let a
     let tiles = []
     let turn1
@@ -85,7 +106,7 @@ class MemoryGame {
 
     tiles = this.createImgArray(rows, cols)
 
-    let templateDiv = memdiv.content.firstElementChild
+    let templateDiv = template.content.firstElementChild
 
     let div = document.importNode(templateDiv, false)
 
@@ -133,7 +154,7 @@ class MemoryGame {
 
         if (tile === lastTile) {
           pairs++
-
+          // Timer that hides tiles after match has been made.
           setTimeout(function () {
             turn1.parentNode.classList.add('removed')
             turn2.parentNode.classList.add('removed')
@@ -142,6 +163,7 @@ class MemoryGame {
             turn2 = null
           }, 300)
         } else {
+          // Timer that flips tiles back after no match has been made.
           setTimeout(function () {
             turn1.src = 'image/0.png'
             turn2.src = 'image/0.png'
@@ -151,12 +173,12 @@ class MemoryGame {
           }, 500)
         }
         if (pairs === (rows * cols) / 2) {
+          // Timer that shows winning results after last tiles have been removed.
           setTimeout(function () {
             let winnerText = document.createElement('p')
             winnerText.setAttribute('id', 'winnertext')
             winnerText.innerText = 'Winner!\n You used ' + tries + ' tries.'
             let div = document.querySelector('#memoryblock')
-            console.log(div)
             div.insertBefore(winnerText, div.childNodes[0])
           }, 500)
         }
@@ -164,9 +186,10 @@ class MemoryGame {
     }
   }
   /**
+ * Creates the tiles to a random order.
  *
- * @param {*} rows
- * @param {*} cols
+ * @param {number} rows
+ * @param {number} cols
  */
   createImgArray (rows, cols) {
     let imgArr = []
@@ -186,5 +209,5 @@ class MemoryGame {
     return imgArr
   }
 }
-
+// Export
 export default MemoryGame

@@ -1,11 +1,12 @@
 /**
- * Class Chat
+ * Module for Chat
  *
- * @module src/Chat2
+ * @module src/Chat
  * @author Melina Cirverius
  * @version 1.1
  */
-class Chat2 {
+
+class Chat {
   constructor () {
     this.nameStorage = window.sessionStorage
     this.chatDiv = document.createElement('div')
@@ -123,4 +124,4 @@ class Chat2 {
   }
 }
 
-export default Chat2
+export default Chat

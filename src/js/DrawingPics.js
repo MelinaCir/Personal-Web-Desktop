@@ -1,3 +1,11 @@
+/**
+ * Module for Drawing Pics
+ *
+ * @module src/DrawingPics
+ * @author Melina Cirverius
+ * @version 1.0
+ */
+
 class DrawingPics {
   constructor () {
     this.drawingDiv = document.createElement('div')
